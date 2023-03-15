@@ -1,44 +1,45 @@
 import React from 'react'
-
+import ClockChild from './clockChild'
 class Clock extends React.Component {
 	constructor(props) {
 		super(props)
 
-		this.state = {
+		this.state = { // по умолчанию state
 			time: new Date().toLocaleTimeString(),
 			date: new Date().toLocaleDateString(),
 		}
 	}
 
-	componentDidMount() {
-		this.intervalTime = setInterval(() => this.updateTime(), 1000)
+	componentDidMount() { // при монтировке
+		this.intervalTime = setInterval(() => this.updateTime(), 1000) 
 	}
 
-	componentWillUnmount() {
+	componentWillUnmount() { // при отмонтировке
 		clearInterval(this.intervalTime)
 	}
 
 	componentDidUpdate() {
-		console.log(this.state.time)
+		console.log(this.state.time) // вывод время 
 	}
 
-	updateTime() {
+	updateTime() { // обновление время
 		this.setState({
 			time: new Date().toLocaleTimeString(),
 		})
 	}
 
-	shouldComponentUpdate() {
+	shouldComponentUpdate() { // при изменение состояние или пропсов
 		return this.props.children % 2 === 0 ? true : false
 	}
 
 	render() {
 		return (
 			<div className='clock'>
-				<p className='clock__title'>Welcome to React everybody</p>
-				<img src={this.props.icon} alt='img' />
-				<p className='clock__item'>{this.state.time}</p>
-				<p className='clock__item--special'>{this.state.date}</p>
+				<ClockChild 
+				icon={this.props.icon} 
+				time={this.state.time} 
+				date={this.state.date}>
+				</ClockChild>
 			</div>
 		)
 	}
