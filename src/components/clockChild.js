@@ -2,9 +2,12 @@
 import React from 'react'
 
 class ClockChild extends React.Component {
-	
 	constructor(props) {
 		super(props)
+	}
+	shouldComponentUpdate() {
+		// при изменение состояние или пропсов
+		return this.props.children % 2 === 0 ? false : true
 	}
 
 	render() {
